@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cover Letter Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <header>
+                <h1>Cover Letter Generator</h1>
+                <p>Create a customized cover letter tailored to the job description in minutes.</p>
+            </header>
+
+            <section class="form-section">
+                <form id="job-description-form" action="/generate_cover_letter" method="POST">
+                    <div class="form-group">
+                        <label for="job-description">Job Description</label>
+                        <textarea id="job-description" name="job-description" placeholder="Paste the job description here..." rows="8" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn">Generate Cover Letter</button>
+                    </div>
+                </form>
+            </section>
+
+            <footer>
+                <p>&copy; 2023 Cover Letter Generator | Powered by AI to assist with your job applications.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('job-description-form').addEventListener('submit', function() {
+            alert('Generating your customized cover letter, please wait...');
+        });
+    </script>
+</body>
+</html>
