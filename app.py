@@ -68,15 +68,25 @@ Please only include the formatted cover letter with no additional text or explan
 
     return prompt
 
+
 # Function to save the response as a PDF
 def save_as_pdf(content, company_name="Company"):
     pdf = FPDF()
     pdf.add_page()
-    pdf.set_font("Times", size=12)
+    #pdf.set_font("Times", size=12)
     pdf.set_margins(left=7, top=7, right=7)
-    
+    # Add this line to load the DejaVu font, supporting the bullet point and other special characters.
+    pdf.add_font('Times-Roman', '', 'fonts/times.ttf', uni=True)
+
+
+# Use this font in the PDF
+    pdf.set_font('Times-Roman', '', 12)
+
+# Then, proceed with writing content to PDF as usual.
+
     # Split content by lines for proper formatting
     line_height = 5  # Adjusted to make sure each line has space
+    content = content.replace('*', '')
 
     # Ensure the content is being written to the PDF
     for line in content.split("\n"):
@@ -117,19 +127,20 @@ def generate_cover_letter():
     input_token_count = len(tokenizer.encode(prompt))
 
     # Calculate max_tokens allowed based on input token count
-    max_allowed_tokens = 32768 - input_token_count  # Mistral-7B Instruct max tokens
+    max_allowed_tokens = 131072  - input_token_count  # Mistral-7B Instruct max tokens
 
 
     if max_allowed_tokens <= 0:
         return "Input too large, reduce resume or job description size", 400
 
     # Limit max_tokens to avoid exceeding token limits
-    max_tokens = min(max_allowed_tokens, 5000)  # Adjust max_tokens if necessary
+    max_tokens = min(max_allowed_tokens, 131072)
+  # Adjust max_tokens if necessary
 
     # Call the Together API with the generated prompt
     client = Together(api_key=os.environ.get('TOGETHER_API_KEY'))
     response = client.chat.completions.create(
-        model="mistralai/Mistral-7B-Instruct-v0.3",  # Updated model
+        model="meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",  # Updated model
         messages=[{"role": "user", "content": prompt}],
         max_tokens=max_tokens,  # Adjusted dynamically
         temperature=0.7,
