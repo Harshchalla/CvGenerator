@@ -1,132 +1,161 @@
+/* General Reset and Body Styling */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
 }
 
 body {
-    background-color: #f3f4f6;
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #3498db, #2c3e50);
     color: #333;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .container {
-    display: flex;
-    background-color: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-    max-width: 1000px;
+    max-width: 800px;
     width: 100%;
-    margin: 20px;
-}
-
-.content {
-    flex: 1;
+    background-color: #fff;
     padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1.2s ease-in-out;
 }
 
+/* Animation for the container */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header */
 header {
-    margin-bottom: 30px;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 header h1 {
-    font-size: 2.2rem;
-    color: #2c3e50;
+    font-size: 3em;
+    font-weight: 700;
+    background: linear-gradient(to right, #3498db, #8e44ad);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
 }
 
 header p {
-    font-size: 1.1rem;
+    font-size: 1.2em;
     color: #7f8c8d;
 }
 
+/* Form Section */
 .form-section {
+    margin-top: 20px;
+}
+
+.form-group {
     margin-bottom: 20px;
 }
 
-.form-section form {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-section label {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+label {
+    display: block;
+    font-weight: 600;
     color: #34495e;
+    margin-bottom: 8px;
+    font-size: 1.1em;
 }
 
-textarea, input[type="file"] {
+/* Textarea Styling */
+textarea {
     width: 100%;
     padding: 15px;
-    border: 1px solid #bdc3c7;
-    border-radius: 6px;
-    font-size: 1rem;
-    margin-bottom: 20px;
-    outline: none;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-textarea:focus, input[type="file"]:focus {
+textarea:focus {
     border-color: #3498db;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
 }
 
-button {
-    padding: 12px 20px;
-    background-color: #3498db;
-    color: white;
+/* Button Styles */
+.btn {
+    display: inline-block;
+    background: linear-gradient(to right, #3498db, #8e44ad);
+    color: #fff;
+    padding: 15px 25px;
     border: none;
-    border-radius: 6px;
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 1.1rem;
-    transition: background-color 0.3s;
+    font-size: 1.2em;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
-button:hover {
-    background-color: #2980b9;
+.btn:hover {
+    background: linear-gradient(to right, #2c3e50, #8e44ad);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+.btn:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+/* Footer */
 footer {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 40px;
+    color: #95a5a6;
+    font-size: 0.9em;
 }
 
 footer p {
-    font-size: 0.9rem;
-    color: #7f8c8d;
+    margin-bottom: 0;
 }
 
-.image-section {
-    flex: 1;
-    background-color: #ecf0f1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
-}
-
-.svg-image {
-    max-width: 100%;
-    height: auto;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
-    }
-
-    .image-section {
-        display: none;
-    }
-
-    .content {
         padding: 20px;
     }
 
-    textarea {
-        height: 120px;
+    header h1 {
+        font-size: 2.2em;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 15px;
+        margin-top: 10px;
+    }
+}
+
+/* Smooth scroll effect for the submit event */
+@keyframes smoothScroll {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
