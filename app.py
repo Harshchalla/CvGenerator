@@ -163,8 +163,10 @@ def generate_cover_letter():
 
     # Return the PDF file as a download
     # Clean up the company name to remove newline characters
-    company_name = company_name.replace('\n', '').replace('\r', '').strip()
-
+    if company_name:
+         company_name = company_name.replace('\n', '').replace('\r', '').strip()
+    else:
+        company_name = "Na"
     # Return the PDF file as a download
     return send_file(pdf_file_path, download_name=f"{company_name}_Cover_Letter.pdf", as_attachment=True, mimetype='application/pdf')
 
