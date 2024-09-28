@@ -1,4 +1,5 @@
 /* General Reset and Body Styling */
+
 * {
     margin: 0;
     padding: 0;
@@ -26,7 +27,9 @@ body {
     animation: fadeIn 1.2s ease-in-out;
 }
 
+
 /* Animation for the container */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -38,7 +41,9 @@ body {
     }
 }
 
+
 /* Header */
+
 header {
     text-align: center;
     margin-bottom: 30px;
@@ -58,7 +63,9 @@ header p {
     color: #7f8c8d;
 }
 
+
 /* Form Section */
+
 .form-section {
     margin-top: 20px;
 }
@@ -75,7 +82,9 @@ label {
     font-size: 1.1em;
 }
 
+
 /* Textarea Styling */
+
 textarea {
     width: 100%;
     padding: 15px;
@@ -94,7 +103,9 @@ textarea:focus {
     box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
 }
 
+
 /* Button Styles */
+
 .btn {
     display: inline-block;
     background: linear-gradient(to right, #3498db, #8e44ad);
@@ -121,7 +132,9 @@ textarea:focus {
     box-shadow: none;
 }
 
+
 /* Footer */
+
 footer {
     text-align: center;
     margin-top: 40px;
@@ -133,16 +146,16 @@ footer p {
     margin-bottom: 0;
 }
 
+
 /* Responsive Design */
+
 @media (max-width: 768px) {
     .container {
         padding: 20px;
     }
-
     header h1 {
         font-size: 2.2em;
     }
-
     .btn {
         width: 100%;
         padding: 15px;
@@ -150,12 +163,50 @@ footer p {
     }
 }
 
+
 /* Smooth scroll effect for the submit event */
+
 @keyframes smoothScroll {
     from {
         opacity: 0;
     }
     to {
         opacity: 1;
+    }
+}
+
+input[type="file"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 1em;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+    margin-top: 8px;
+}
+
+input[type="file"]:focus {
+    border-color: #3498db;
+    outline: none;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+}
+
+.form-group {
+    margin-bottom: 30px;
+    /* Updated for better spacing */
+}
+
+@media (max-width: 768px) {
+    input[type="file"] {
+        width: 100%;
+        padding: 12px;
+        /* Adjust padding on smaller screens */
+    }
+    .btn {
+        margin-top: 15px;
+        /* Increase margin above the button on smaller screens */
     }
 }

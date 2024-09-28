@@ -16,7 +16,8 @@
             </header>
 
             <section class="form-section">
-                <form id="job-description-form" action="/generate_cover_letter" method="POST">
+                <form id="job-description-form" action="/generate_cover_letter" method="POST" enctype="multipart/form-data">
+
                     <div class="form-group">
                         <label for="job-description">Job Description</label>
                         <textarea id="job-description" name="job-description" placeholder="Paste the job description here..." rows="8" required></textarea>
@@ -25,6 +26,11 @@
                     <div class="form-group">
                         <button type="submit" class="btn">Generate Cover Letter</button>
                     </div>
+                    <div class="form-group">
+                        <label for="resume">Upload Resume (optional)</label>
+                        <input type="file" id="resume" name="resume" accept="application/pdf">
+                    </div>
+                    
                 </form>
             </section>
 

@@ -12,17 +12,28 @@ tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 app = Flask(__name__)
 
 # Function to extract text from your resume PDF
-def extract_text_from_pdf(pdf_path):
+def extract_text_from_pdf(pdf):
     try:
-        with open(pdf_path, "rb") as file:
-            reader = PyPDF2.PdfReader(file)
+        # Check if the input is a FileStorage object or a file path
+        if isinstance(pdf, (str, os.PathLike)):
+            # It's a file path, open the file normally
+            with open(pdf, "rb") as file:
+                reader = PyPDF2.PdfReader(file)
+                text = ""
+                for page in range(len(reader.pages)):
+                    text += reader.pages[page].extract_text()
+        else:
+            # It's a file-like object (FileStorage), read from it directly
+            reader = PyPDF2.PdfReader(pdf)
             text = ""
             for page in range(len(reader.pages)):
                 text += reader.pages[page].extract_text()
+
         return text
     except Exception as e:
         print(f"Error reading PDF: {e}")
         return ""
+
 
 # Function to extract company name from job description
 def extract_company_name(job_description):
@@ -110,12 +121,15 @@ def index():
 @app.route('/generate_cover_letter', methods=['POST'])
 def generate_cover_letter():
     job_description = request.form.get('job-description')
+    resume_file = request.files.get('resume')  # Handle the uploaded resume
 
     if not job_description:
         return "No job description provided", 400
 
-    # Extract resume text
-    resume_text = extract_text_from_pdf("resume.pdf")
+    if resume_file:
+        resume_text = extract_text_from_pdf(resume_file)  # Use uploaded resume
+    else:
+        resume_text = extract_text_from_pdf("resume.pdf")  # Use default resume.pdf
 
     if not resume_text:
         return "No resume found", 400
