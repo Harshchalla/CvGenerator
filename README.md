@@ -1,5 +1,5 @@
 # Cover Letter Generator
-
+# cv.harshchalla.me
 This project is a **Flask-based web application** designed to generate **tailored cover letters** based on your resume and a provided job description. The application extracts text from a resume PDF, analyzes the job description, and then uses a **large language model (Meta-Llama-3.1-8B-Instruct-Turbo)** via the **Together API** to create a personalized cover letter. The generated cover letter is saved as a PDF and can be downloaded by the user.
 
 ## Features
