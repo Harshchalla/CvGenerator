@@ -52,7 +52,7 @@ def create_cover_letter_prompt(resume_text, job_description):
     else:
         header = "Dear Hiring Manager,\n"
 
-    footer = "\nSincerely, Harsh Victor Challa"
+    footer = "\nSincerely, [NAME_IN_RESUME]]"
 
     prompt = f"""
 You are a professional cover letter writer tasked with generating a tailored cover letter. Use only the information from my resume to craft the cover letter. Do **not fabricate** any experiences, qualifications, or skills. Your goal is to showcase my strengths by using real examples from my resume and relating them to the key requirements of the job description.
@@ -62,9 +62,10 @@ You are a professional cover letter writer tasked with generating a tailored cov
 2. Analyze my resume to find examples of real experiences that demonstrate I possess these skills. **Do not make up any stories**—only use information from my resume.
 3. When matching my experience to the job, create specific examples from my past roles to show how my skills align with the job requirements.
 4. Format the body of the cover letter using bullet points to clearly demonstrate how my experience meets each key skill or quality. Each bullet point should reference an actual project or role I’ve undertaken.
+3. **When referencing these specific statements from the job description in the cover letter, include the exact phrase or sentence from the job description, and enclose it in double underscores (e.g., __Designs, develops, and .......etc __).**
 
 **Cover Letter Structure:**
-- Start with "{header.strip()}" and end with "Sincerely, Harsh Victor Challa."
+- Start with "{header.strip()}" and end with "{footer.strip()}"
 - The body should focus exclusively on how my **actual experiences** align with the job's key skills or qualities. For each skill or quality, provide a clear and concrete example from my resume.
 - Ensure the cover letter remains concise and professional. There should be no additional commentary or fictional details.
 
@@ -84,24 +85,43 @@ Please only include the formatted cover letter with no additional text or explan
 def save_as_pdf(content, company_name="Company"):
     pdf = FPDF()
     pdf.add_page()
-    #pdf.set_font("Times", size=12)
     pdf.set_margins(left=7, top=7, right=7)
-    # Add this line to load the DejaVu font, supporting the bullet point and other special characters.
     pdf.add_font('Times-Roman', '', 'fonts/times.ttf', uni=True)
-
-
-# Use this font in the PDF
     pdf.set_font('Times-Roman', '', 12)
 
-# Then, proceed with writing content to PDF as usual.
-
-    # Split content by lines for proper formatting
     line_height = 5  # Adjusted to make sure each line has space
     content = content.replace('*', '')
 
-    # Ensure the content is being written to the PDF
     for line in content.split("\n"):
-        pdf.multi_cell(0, line_height, line)
+        index = 0
+        while index < len(line):
+            if line[index:index+2] == '__':
+                # Underlined text starts
+                index += 2
+                end_index = line.find('__', index)
+                if end_index == -1:
+                    # No closing '__', treat rest of line as underlined
+                    underlined_text = line[index:]
+                    index = len(line)
+                else:
+                    underlined_text = line[index:end_index]
+                    index = end_index + 2  # Move index past closing '__'
+                # Set font to underline
+                pdf.set_font('Times-Roman', 'U', 12)
+                pdf.write(line_height, underlined_text)
+                # Reset font
+                pdf.set_font('Times-Roman', '', 12)
+            else:
+                # Normal text
+                next_underline = line.find('__', index)
+                if next_underline == -1:
+                    text = line[index:]
+                    index = len(line)
+                else:
+                    text = line[index:next_underline]
+                    index = next_underline
+                pdf.write(line_height, text)
+        pdf.ln(line_height)
 
     # Set file name based on the company name or a default name
     if company_name:
