@@ -6,6 +6,7 @@ import PyPDF2
 from fpdf import FPDF
 from transformers import GPT2TokenizerFast
 
+
 # Initialize tokenizer
 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 
