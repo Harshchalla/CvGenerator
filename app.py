@@ -1,3 +1,4 @@
+import io
 import os
 import re
 from flask import Flask, render_template, request, send_file
@@ -203,7 +204,20 @@ def generate_cover_letter():
     else:
         company_name = "Na"
     # Return the PDF file as a download
-    return send_file(pdf_file_path, download_name=f"{company_name}_Cover_Letter.pdf", as_attachment=True, mimetype='application/pdf')
+    with open(pdf_file_path, 'rb') as f:
+        pdf_data = f.read()
+
+    # Delete the PDF file from the server
+    os.remove(pdf_file_path)
+
+    # Return the PDF from memory
+    return send_file(
+        io.BytesIO(pdf_data),
+        download_name=f"{company_name}_Cover_Letter.pdf",
+        as_attachment=True,
+        mimetype='application/pdf'
+    )
+    # return send_file(pdf_file_path, download_name=f"{company_name}_Cover_Letter.pdf", as_attachment=True, mimetype='application/pdf')
 
 if __name__ == '__main__':
     app.run(debug=True)
